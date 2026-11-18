@@ -1,3 +1,4 @@
+// Mengimpor pustaka dasar Flutter, SQLite, dan path
 import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
