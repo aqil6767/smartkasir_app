@@ -14,7 +14,6 @@ class DatabaseHelper {
   // Instansiasi tunggal statis
   static final DatabaseHelper instance = DatabaseHelper._init();
   static Database? _database;
-
   DatabaseHelper._init();
   // Getter pembuka koneksi database aktif
   Future<Database> get database async {
@@ -51,38 +50,37 @@ class DatabaseHelper {
   Future _createDB(Database db, int version) async {
     // 1. Pembuatan Tabel Produk
     await db.execute('''
-    CREATE TABLE produk (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      kode_produk TEXT UNIQUE,
-      nama_produk TEXT NOT NULL,
-      kategori TEXT NOT NULL,
-      harga_beli REAL NOT NULL,
-      harga_jual REAL NOT NULL,
-      stok INTEGER NOT NULL,
-      gambar_path TEXT,
-      diskon_persen INTEGER DEFAULT 0,
-      created_at TEXT
-    )
-  ''');
+      CREATE TABLE produk (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        kode_produk TEXT UNIQUE,
+        nama_produk TEXT NOT NULL,
+        kategori TEXT NOT NULL,
+        harga_beli REAL NOT NULL,
+        harga_jual REAL NOT NULL,
+        stok INTEGER NOT NULL,
+        gambar_path TEXT,
+        diskon_persen INTEGER DEFAULT 0,
+        created_at TEXT
+      )
+    ''');
     // 2. Pembuatan Tabel Karyawan
     await db.execute('''
-    CREATE TABLE karyawan (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      nama_karyawan TEXT NOT NULL,
-      pin TEXT NOT NULL,
-      peran TEXT NOT NULL
-    )
-  ''');
-
+      CREATE TABLE karyawan (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nama_karyawan TEXT NOT NULL,
+        pin TEXT NOT NULL,
+        peran TEXT NOT NULL
+      )
+    ''');
     // 3. Memasukkan data staf awal otomatis (Seeding Data Awal Toko)
     await db.rawInsert('''
-    INSERT INTO karyawan (nama_karyawan, pin, peran)
-    VALUES ('Ahmad Kasir', '1234', 'Kasir')
-  ''');
+      INSERT INTO karyawan (nama_karyawan, pin, peran)
+      VALUES ('Ahmad Kasir', '1234', 'Kasir')
+    ''');
     await db.rawInsert('''
-    INSERT INTO karyawan (nama_karyawan, pin, peran)
-    VALUES ('Siti Supervisor', '8888', 'Manajer')
-  ''');
+      INSERT INTO karyawan (nama_karyawan, pin, peran)
+      VALUES ('Siti Supervisor', '8888', 'Manajer')
+    ''');
   }
 
   // DDL: Migrasi Skema jika versi basis data ditingkatkan
@@ -90,17 +88,17 @@ class DatabaseHelper {
     if (oldVersion < 2) {
       // Membuat tabel karyawan untuk database pengguna yang sudah ada
       await db.execute('''
-    CREATE TABLE IF NOT EXISTS karyawan (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      nama_karyawan TEXT NOT NULL,
-      pin TEXT NOT NULL,
-      peran TEXT NOT NULL
-    )
-  ''');
+        CREATE TABLE IF NOT EXISTS karyawan (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nama_karyawan TEXT NOT NULL,
+        pin TEXT NOT NULL,
+        peran TEXT NOT NULL
+      )
+    ''');
       // Memasukkan staf awal jika tabel baru dibuat
       await db.rawInsert('''
-      INSERT INTO karyawan (nama_karyawan, pin, peran)
-      VALUES ('Ahmad Kasir', '1234', 'Kasir')
+        INSERT INTO karyawan (nama_karyawan, pin, peran)
+        VALUES ('Ahmad Kasir', '1234', 'Kasir')
     ''');
     }
   }
@@ -108,7 +106,6 @@ class DatabaseHelper {
   // ==========================================
   // METODE CRUD: TABEL KARYAWAN
   // ==========================================
-
   // 1. CREATE: Menyimpan Karyawan Baru
   Future<int> insertKaryawan(Karyawan karyawan) async {
     final db = await instance.database;
@@ -144,6 +141,7 @@ class DatabaseHelper {
   // ==========================================
   Future<int> insertProduk(Produk produk) async {
     final db = await instance.database;
+
     return await db.insert('produk', produk.toMap());
   }
 

@@ -18,7 +18,6 @@ class _ProfilTokoPageState extends State<ProfilTokoPage> {
   final _namaTokoController = TextEditingController();
   final _alamatController = TextEditingController();
   final _noWaController = TextEditingController();
-  final _instagramController = TextEditingController();
   final _footerController = TextEditingController();
   // Status visual tombol simpan
   bool _sedangMenyimpan = false;
@@ -45,14 +44,12 @@ class _ProfilTokoPageState extends State<ProfilTokoPage> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       _namaTokoController.text =
-          prefs.getString('nama_toko') ?? 'Waroenk Kampoenk';
+          prefs.getString('nama_toko') ?? 'SmartKasir Poliban';
       _alamatController.text =
           prefs.getString('alamat_toko') ??
           'Jl. Brigjend H. Hasan Basry, Banjarmasin';
       _noWaController.text = prefs.getString('no_wa') ?? '081234567890';
-      _instagramController.text =
-          prefs.getString('instagram_toko') ?? '@WaroenkKampoenk';
-      _footerController.text = prefs.getString('footer_struk') ?? 'Terima Kasih Atas Kunjungan Anda! Barang yang sudah dibeli tidak dapat ditukar.';
+      _footerController.text = prefs.getString('footer_struk') ?? 'Terima Kasih Atas Kunjungan Anda! Barangyang sudah dibeli tidak dapat ditukar.';
       _activeCashierName =
           prefs.getString('active_cashier_name') ?? 'Belum Ditentukan';
     });
@@ -65,7 +62,6 @@ class _ProfilTokoPageState extends State<ProfilTokoPage> {
     await prefs.setString('nama_toko', _namaTokoController.text.trim());
     await prefs.setString('alamat_toko', _alamatController.text.trim());
     await prefs.setString('no_wa', _noWaController.text.trim());
-    await prefs.setString('instagram_toko', _instagramController.text.trim());
     await prefs.setString('footer_struk', _footerController.text.trim());
     setState(() => _sedangMenyimpan = false);
     if (!mounted) return;
@@ -164,8 +160,8 @@ class _ProfilTokoPageState extends State<ProfilTokoPage> {
               ),
             ),
             const SizedBox(height: 20),
-
             // FORM IDENTITAS USAHA (SHAREDPREFERENCES)
+
             const Text(
               'IDENTITAS USAHA & STRUK KASIR',
               style: TextStyle(
@@ -219,22 +215,7 @@ class _ProfilTokoPageState extends State<ProfilTokoPage> {
               ),
             ),
             const SizedBox(height: 14),
-            // 4. Instagram
-            TextFormField(
-              controller: _instagramController,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                labelText: 'Instagram Toko',
-                prefixIcon: const Icon(Icons.camera_alt_outlined),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                filled: true,
-                fillColor: Colors.white,
-              ),
-            ),
-
-            // 5. CATATAN KAKI STRUK (FOOTER RECEIPT)
+            // 4. CATATAN KAKI STRUK (FOOTER RECEIPT)
             TextFormField(
               controller: _footerController,
               maxLines: 2,
@@ -243,7 +224,7 @@ class _ProfilTokoPageState extends State<ProfilTokoPage> {
                 hintText: 'Contoh: Terima kasih atas kunjungan Anda!',
                 prefixIcon: const Icon(Icons.receipt_outlined),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 filled: true,
                 fillColor: Colors.white,

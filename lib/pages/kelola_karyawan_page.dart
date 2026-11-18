@@ -84,7 +84,7 @@ class _KelolaKaryawanPageState extends State<KelolaKaryawanPage> {
           ],
         ),
         content: Text(
-          'Apakah Anda yakin ingin menghapus staf "${staf.namaKaryawan}" (${staf.peran})? Data tidak dapat dipulihkan.',
+          'Apakah Anda yakin ingin menghapus staf "${staf.namaKaryawan}" (${staf.peran})? Datatidak dapat dipulihkan.',
         ),
         actions: [
           TextButton(
@@ -125,9 +125,6 @@ class _KelolaKaryawanPageState extends State<KelolaKaryawanPage> {
     } else if (peran == 'Admin') {
       bg = Colors.blue.shade100;
       fg = Colors.blue.shade900;
-    } else if (peran == 'Supervisor') {
-      bg = Colors.purple.shade100;
-      fg = Colors.purple.shade900;
     } else {
       bg = Colors.green.shade100;
       fg = Colors.green.shade900;
